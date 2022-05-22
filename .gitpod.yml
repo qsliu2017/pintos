@@ -1,0 +1,16 @@
+tasks:
+  - name: Install src/utils
+    command: |
+      sudo apt install -y qemu-system-x86
+      echo "#define FAKE_STROPTS_H" | sudo tee /usr/local/include/stropts.h > /dev/null
+      cd ${GITPOD_REPO_ROOT}/src/utils
+      make
+      sudo install backtrace pintos pintos-gdb pintos-mkdisk pintos-set-cmdline Pintos.pm squish-pty /usr/local/bin
+      make clean
+      sudo sed -i 's/^GDBMACROS=.*/GDBMACROS=${GITPOD_REPO_ROOT}\/src\/misc\/gdb-macros/' /usr/local/bin/pintos-gdb
+      cd -
+
+vscode:
+  extensions:
+    - llvm-vs-code-extensions.vscode-clangd
+    - ms-vscode.makefile-tools
