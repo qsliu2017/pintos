@@ -2,6 +2,7 @@ tasks:
   - name: Install src/utils
     command: |
       sudo apt install -y qemu-system-x86
+      sudo ${GITPOD_REPO_ROOT}/src/misc/bochs-2.6.11-build.sh /usr/local
       echo "#define FAKE_STROPTS_H" | sudo tee /usr/local/include/stropts.h > /dev/null
       cd ${GITPOD_REPO_ROOT}/src/utils
       make
